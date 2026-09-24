@@ -9,40 +9,42 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Validated
 @Data
 @Entity
+@Table(name = "usuario")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
     @CPF
-    @Column
+    @Column(name = "cpf")
     private String cpf;
 
     @Max(value = 45)
     @NotBlank(message = "Nome não pode ser vazio!")
-    @Column
+    @Column(name = "nome")
     private String nome;
 
     @NotBlank(message = "Email não pode ser vazio!")
     @Email(message = "Email inválido!")
-    @Column
+    @Column(name = "email")
     private String email;
 
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$",
     message = "A senha deve conter pelo menos uma letra minúscula, uma maiúscula, um número e um caractere especial.")
-    @Column
+    @Column(name = "senha")
     private String senha;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column
+    @Column(name = "dataNascimento")
     private LocalDate dataNascimento;
 
-    @Column
+    @Column(name = "dataHoraCadastro")
     private LocalDateTime dataHoraCadastro;
 }
