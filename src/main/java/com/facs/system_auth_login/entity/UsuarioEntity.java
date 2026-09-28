@@ -36,8 +36,6 @@ public class UsuarioEntity {
     @Column(name = "email")
     private String email;
 
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$",
-    message = "A senha deve conter pelo menos uma letra minúscula, uma maiúscula, um número e um caractere especial.")
     @Column(name = "senha")
     private String senha;
 
