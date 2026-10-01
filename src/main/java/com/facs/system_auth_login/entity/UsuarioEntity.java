@@ -23,7 +23,7 @@ public class UsuarioEntity {
     private UUID id;
 
     @CPF
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true)
     private String cpf;
 
     @Max(value = 45)
@@ -33,7 +33,7 @@ public class UsuarioEntity {
 
     @NotBlank(message = "Email não pode ser vazio!")
     @Email(message = "Email inválido!")
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "senha")
