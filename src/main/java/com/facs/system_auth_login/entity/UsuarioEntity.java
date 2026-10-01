@@ -32,9 +32,9 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "cpf", unique = true)
     private String cpf;
 
-    @Max(value = 45)
+    @Size(max = 45, message = "O nome não pode ter mais de 45 caracteres!")
     @NotBlank(message = "Nome não pode ser vazio!")
-    @Column(name = "nome")
+    @Column(name = "nome", length = 45)
     private String nome;
 
     @NotBlank(message = "Email não pode ser vazio!")
