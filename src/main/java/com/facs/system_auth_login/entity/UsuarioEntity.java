@@ -5,10 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+import org.jspecify.annotations.Nullable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Validated
@@ -17,7 +23,7 @@ import java.util.UUID;
 @Table(name = "usuario")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -45,4 +51,27 @@ public class UsuarioEntity {
 
     @Column(name = "dataHoraCadastro")
     private LocalDateTime dataHoraCadastro;
+
+    @Column(name = "role")
+    private UsuarioRole role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UsuarioRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USUARIO"));
+        }
+        else{
+            return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
+        }
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }
