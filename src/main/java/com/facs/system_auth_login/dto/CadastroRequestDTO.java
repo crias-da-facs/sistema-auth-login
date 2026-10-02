@@ -1,15 +1,12 @@
 package com.facs.system_auth_login.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public record UsuarioRequestDTO(
+public record CadastroRequestDTO(
         @NotBlank(message = "CPF não pode ser vazio!")
         @CPF
         String cpf,
@@ -27,7 +24,8 @@ public record UsuarioRequestDTO(
                 message = "A senha deve conter pelo menos uma letra minúscula, uma maiúscula, um número e um caractere especial.")
         String senha,
 
-        @NotBlank(message = "Data de nascimento não pode ser vazia!")
+        @NotNull(message = "Data de nascimento não pode estar vazia!")
+        @Past(message = "Use uma data de nascimento que tenha existido!")
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate dataNascimento
 ) {}
