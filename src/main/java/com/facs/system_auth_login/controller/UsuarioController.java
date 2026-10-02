@@ -19,7 +19,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("lista")
+    @GetMapping("/lista")
     public ResponseEntity<List<UsuarioEntity>> ListaUsuarios(){
         return ResponseEntity.ok(usuarioService.buscarUsuarios());
     }
